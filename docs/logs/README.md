@@ -17,6 +17,9 @@ Sunday reviews: `YYYY-MM-DD-review-week-N.md`.
 ## What changed
 - …
 
+## Documents changed
+- Which plan or specification file, what changed and why. "None" if none.
+
 ## Checks
 - lint, typecheck, tests: passed | failed (which, why)
 

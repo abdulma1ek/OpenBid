@@ -199,7 +199,7 @@ pre .c{color:var(--muted)}
   <div class="cols">
     <div><h3>Start</h3><p>Type <code>/start-session W2-3</code>.</p><ul><li>Pulls the latest code.</li><li>Reads this week's tasks and recent logs.</li><li>Tells you what your partner changed.</li><li>States the goal and waits for your go-ahead.</li></ul></div>
     <div><h3>During</h3><ul><li>One agent, one branch, one plan item.</li><li>Stay in your track's folders.</li><li>Message your partner before touching a shared file.</li></ul></div>
-    <div><h3>End</h3><p>Say "we're finishing up" or type <code>/end-session</code>.</p><ul><li>Runs the checks and reports honestly.</li><li>Pushes the branch and opens the pull request.</li><li>Summarises the session and writes the log.</li></ul></div>
+    <div><h3>End</h3><p>Say "we're finishing up" or type <code>/end-session</code>.</p><ul><li>Runs the checks and reports honestly.</li><li>Pushes the branch and opens the pull request.</li><li>Summarises the session and writes the log.</li><li>Records any change you decided in the plan or specification, with a dated note.</li></ul></div>
   </div>
   <p>A log is a short file named by date, person and topic, for example <code>2026-10-06-sara-signin.md</code>. It records the plan item, what changed, check results, anything your partner needs to know, the next step, and any plan change to raise on Sunday. Because each session has its own file, two people never edit the same log.</p>
 </section>
@@ -209,7 +209,7 @@ pre .c{color:var(--muted)}
   <div class="rules">
     <div class="rule"><b>Nobody pushes to the main branch.</b><span>Every change is a pull request the other person approves, with checks passing.</span></div>
     <div class="rule"><b>Branches live two days at most.</b><span>Small pull requests your partner can read in ten minutes.</span></div>
-    <div class="rule"><b>The plan changes on Sunday only.</b><span>Mid-week proposals go in your log.</span></div>
+    <div class="rule"><b>No silent changes.</b><span>When a decision changes the plan or the specification, the old line stays, struck through, with a dated note saying what changed and why.</span></div>
     <div class="rule"><b>Database changes are new files.</b><span>Never edit a merged migration; tell your partner when one merges.</span></div>
     <div class="rule"><b>Generated files are regenerated.</b><span>On a conflict, take the main version and rebuild, never merge by hand.</span></div>
     <div class="rule"><b>New libraries get their own pull request.</b><span>Merged the same day, with a line in the decision log.</span></div>

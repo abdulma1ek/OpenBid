@@ -17,8 +17,10 @@ Version 1, 2026-10-04. For two founders building with AI assistance. Read by peo
 | Code | GitHub repository (private) | Through pull requests |
 | Specification | `docs/architecture.md`, `docs/data-model.md`, `docs/decisions.md` | Pull request, both agree |
 | AI rules | `CLAUDE.md` | Pull request, both agree |
-| Overall plan | `docs/plan/execution-plan.md` | Sunday review only |
-| This week's tasks | `docs/plan/week-NN.md` | Written at Sunday review; not edited mid-week |
+| ~~Overall plan~~ | ~~`docs/plan/execution-plan.md`~~ | ~~Sunday review only~~ |
+| Overall plan | `docs/plan/execution-plan.md` | Changed 2026-10-04: Sunday review, and at session wrap-up when a founder decided a change, with a change note (section 11). Why: transparency between sessions. |
+| ~~This week's tasks~~ | ~~`docs/plan/week-NN.md`~~ | ~~Written at Sunday review; not edited mid-week~~ |
+| This week's tasks | `docs/plan/week-NN.md` | Changed 2026-10-04: written at Sunday review; mid-week changes a founder decides are recorded with a change note. Why: same. |
 | Session logs | `docs/logs/` | One new file per session, by its author |
 | How we work | `docs/team/coordination.md` | Sunday review |
 | Interview notes | `docs/research/` | Whoever ran the interview; no contact details |
@@ -82,7 +84,8 @@ These cause most collisions. Each has one rule.
 | `package.json`, lockfile | Add a dependency in its own pull request and merge it the same day. On conflict, take `main` and reinstall. |
 | `.env.example` | Update in the same pull request that needs the variable; put the value in the vault; tell your partner. |
 | `CLAUDE.md`, specification files | Change only by pull request that both approve. |
-| `docs/plan/*` | Sunday review only. Mid-week proposals go in your log. |
+| ~~`docs/plan/*`~~ | ~~Sunday review only. Mid-week proposals go in your log.~~ |
+| `docs/plan/*` | Changed 2026-10-04: a founder's decision is recorded at wrap-up with a change note; an AI's suggestion still goes in the log. Tell your partner, since you may both touch this file. |
 | `docs/logs/*` | Add your own file. Never edit someone else's. |
 
 ## 6. Branches and pull requests
@@ -115,6 +118,7 @@ These cause most collisions. Each has one rule.
 6. If the specification is unclear or contradicts the code, stop and ask.
 7. Keep the documents true: follow the update rules in `CLAUDE.md` in the same change.
 8. No secrets and no customer documents in prompts. Use the public packages in `tests/fixtures/`.
+9. When a founder decides a change during a session, record it at wrap-up in the document it affects, using a change note (section 11).
 
 **What to give an AI outside Claude Code** (a chat tool, or a fresh assistant with no repository access)
 
@@ -152,3 +156,14 @@ Thirty to forty-five minutes, together.
 - Private repository; both founders are admins; two-factor sign-in required.
 - `main` protected: pull request required, one approval, automated checks required.
 - Vercel builds a preview link for every pull request.
+
+## 11. Change notes
+
+Added 2026-10-04. When a line in the plan or the specification stops being true, it is never deleted. It is struck through, and a dated note directly beneath it says what is true now, why it changed, and which session log has the detail.
+
+```
+~~Reminders default to 14 days, 7 days, 72 hours, 24 hours.~~
+> **Changed 2026-10-07:** reminders default to 7 days and 24 hours. Why: design partners found four emails too many. Log: `2026-10-07-sara-reminders.md`.
+```
+
+In a table, strike through the old row and add the new row beneath it. Struck-through lines are history, not instructions. The full rule is in `CLAUDE.md`.

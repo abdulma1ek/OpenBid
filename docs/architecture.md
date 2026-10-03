@@ -2,6 +2,8 @@
 
 Version 1.0, 2026-10-04. Status: agreed scope. Companion files: `../CLAUDE.md` (rules), `data-model.md` (tables), `decisions.md` (why).
 
+Changes are recorded in place: the old line is struck through and a dated note beneath it says what changed and why (`../CLAUDE.md`, Change notes).
+
 Facts marked **[verified]** were checked on 2026-10-04. Items marked **[verify]** are assumptions to confirm before depending on them.
 
 ## 1. Product scope

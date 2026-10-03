@@ -2,6 +2,8 @@
 
 Version 1.0, 2026-10-04. Postgres on Supabase. Companion to `architecture.md`.
 
+Changes are recorded in place: the old line is struck through and a dated note beneath it says what changed and why (`../CLAUDE.md`, Change notes).
+
 Conventions: `id uuid primary key default gen_random_uuid()`; `created_at` / `updated_at timestamptz` on every table; money as `*_cents bigint` + `currency text`; enums as `text` with a `check` constraint; **Org** column = table has `organization_id` and RLS.
 
 ## Accounts

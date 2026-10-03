@@ -2,7 +2,10 @@
 
 Version 1, written 2026-10-04. Weeks run Monday to Sunday. Every week ends with one deliverable that can be shown on Sunday.
 
-This file is edited **only at the Sunday review** (`../team/coordination.md` section 8). Day-to-day progress lives in `../logs/`. The detailed task list for the current week lives in `week-NN.md` beside this file and is written one week at a time.
+~~This file is edited **only at the Sunday review** (`../team/coordination.md` section 8).~~
+> **Changed 2026-10-04:** this file is also updated at the end of a session when a founder decides a change during it. The old line stays, struck through, with a dated note beneath it. Moving work between weeks still happens at the Sunday review. Why: every session should see what changed last time and why. Log: `2026-10-04-abdulmalek-planning.md`.
+
+Day-to-day progress lives in `../logs/`. The detailed task list for the current week lives in `week-NN.md` beside this file and is written one week at a time.
 
 ## Session logs (every session, both founders)
 
@@ -12,6 +15,7 @@ Every work session ends with a log so either of us can see what the other did.
 - Logs go in `docs/logs/`, one file per session, named `YYYY-MM-DD-<name>-<topic>.md`.
 - Each log states the plan item, what changed, check results, what the partner needs to know, the next step, and any plan change to raise on Sunday.
 - A session without a log is not finished. From week 1, the automated checks reject a pull request that adds no log.
+- If a session changes something this plan or the specification states, the wrap-up updates that document. The old line is never deleted: it is struck through, and a dated note beneath it says what changed and why.
 - At the Sunday review we read the week's logs before editing this plan.
 
 ## How to read it
@@ -113,3 +117,4 @@ Every work session ends with a log so either of us can see what the other did.
 |---|---|---|
 | 2026-10-04 | Plan created | |
 | 2026-10-04 | Renamed to OpenBid; added the session-log rule | Working name decided; traceability between sessions |
+| 2026-10-04 | Plan and specification may be updated at session wrap-up, with struck-through lines and dated notes | Full transparency on what changed and why |

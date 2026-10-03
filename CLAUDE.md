@@ -54,8 +54,8 @@ If code and these docs disagree, stop and say so. Do not silently follow either.
 **Wrap-up.** When the user says the session or the day is over ("we're finishing up", "wrapping up", "that's it for today", "done for now"), or runs `/end-session`, do all of this before your final reply, without being asked:
 
 1. Run lint, typecheck and tests if code exists; record the real results.
-2. Apply the update rules below; fix or list anything missing.
-3. Write the session log to `docs/logs/YYYY-MM-DD-<name>-<topic>.md` using the template in `docs/logs/README.md`: plan item, what changed, check results, what the partner needs to know, next step, plan changes to raise on Sunday.
+2. Apply the update rules below. If a founder decided a change this session that the plan or the specification states, update that document now with a change note. Fix or list anything missing.
+3. Write the session log to `docs/logs/YYYY-MM-DD-<name>-<topic>.md` using the template in `docs/logs/README.md`: plan item, what changed, documents changed and why, check results, what the partner needs to know, next step, plan changes to raise on Sunday.
 4. Commit the work and the log on the current branch and push. If the current branch is `main`, ask before pushing.
 5. Reply with the state (done, partly done, blocked), the log's path, and the next step.
 
@@ -72,9 +72,24 @@ Documentation that no longer matches the code is a bug. Make these updates in th
 | Components, pipelines, jobs, limits | `docs/architecture.md` |
 | Environment variables | `.env.example`, and tell the partner in the log |
 | Folder layout or working rules | `docs/team/coordination.md` and this file, by pull request both founders approve |
-| Scope, order or dates of work | Not mid-week. Record it in the log under "Plan changes to raise on Sunday"; `docs/plan/` changes only at the Sunday review or when a founder asks directly |
+| Scope, order or dates of work | `docs/plan/`, with a change note, when a founder decides it in the session. Your own suggestions go in the log under "Plan changes to raise on Sunday" |
 
-Never edit `docs/plan/`, the specification, or this file as a side effect of feature work.
+Never edit `docs/plan/`, the specification, or this file on your own initiative or as a side effect of feature work. A founder's decision is required.
+
+## Change notes
+
+When a statement in the plan or the specification stops being true, never delete it or rewrite it silently. Keep the old line, struck through, and put a dated note directly beneath it:
+
+```
+~~Reminders default to 14 days, 7 days, 72 hours, 24 hours.~~
+> **Changed 2026-10-07:** reminders default to 7 days and 24 hours. Why: design partners found four emails too many. Log: `2026-10-07-sara-reminders.md`.
+```
+
+- The note says what is true now, why it changed, and which session log has the detail.
+- In a table, strike through the old row and add the new row directly beneath it, starting with `Changed YYYY-MM-DD:`.
+- Applies to `docs/architecture.md`, `docs/data-model.md`, `docs/plan/*` and `docs/team/coordination.md`. `docs/decisions.md` gets a new entry naming the one it supersedes. This file records its changes in the list at the bottom, so the rules stay short.
+- Read struck-through lines as history, not as instructions.
+- New material that contradicts nothing needs no note; mention it in the log.
 
 ## Working conventions
 
@@ -97,3 +112,7 @@ pnpm db:types       # regenerate TypeScript types from the schema
 ```
 
 (These scripts are the target set; create them during the Foundation stage.)
+
+## Changes to these rules
+
+- 2026-10-04: wrap-up may update the plan and the specification, using change notes. Before: the plan changed only at the Sunday review. Why: full transparency between sessions, so the next session sees what changed and why.
