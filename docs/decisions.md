@@ -1,4 +1,4 @@
-# BidScope One: Decision Log
+# OpenBid: Decision Log
 
 Append new entries at the bottom. Do not rewrite old ones; supersede them with a new entry that names the old ID.
 
@@ -21,6 +21,8 @@ Format: **ID. Decision.** Why. Rejected alternatives. Revisit when.
 **D7. Teams with roles from the first release.** Retrofitting sharing is expensive.
 
 **D8. Market Intelligence in Release 2; Partner Network parked; bid drafting reserved.** `files.kind = 'past_bid'` exists so drafting can be added without a schema change.
+
+**D25. The working name is OpenBid.** Decided 2026-10-04. The brainstorm guide in `docs/reference/` uses the earlier name BidScope One.
 
 ## Coverage
 

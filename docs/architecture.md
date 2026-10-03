@@ -1,4 +1,4 @@
-# BidScope One: Technical Architecture
+# OpenBid: Technical Architecture
 
 Version 1.0, 2026-10-04. Status: agreed scope. Companion files: `../CLAUDE.md` (rules), `data-model.md` (tables), `decisions.md` (why).
 
@@ -48,6 +48,8 @@ Sources: CanadaBuys CSV | uploads | Postmark inbound email | municipal listing p
 | Email | Postmark | Transactional stream, broadcast stream, inbound stream (Pro plan) **[verified]** |
 | Payments | Stripe | Checkout + Customer Portal + webhooks |
 | Errors / analytics | Sentry / PostHog | Scrub request bodies and document content |
+
+**Hosting model:** fully managed cloud services; we run no servers of our own. Vercel hosts the application code and Supabase hosts the database, sign-in and files, both in Montreal. All customers share one system, separated by row-level security (multi-tenant); there is no per-customer or on-premises installation. Supabase is open source and the database is standard Postgres, so moving to self-hosting later is possible without a rewrite.
 
 **Data residency statement (for the privacy policy):** customer files and records are stored in Canada. Document pages and profile text are sent to Anthropic's API for processing in the United States and are not used to train models.
 
@@ -224,8 +226,8 @@ Event payloads and step return values contain IDs and counts only. Inngest free 
 | Environment | Hosting | Purpose |
 |---|---|---|
 | Local | Supabase CLI + `pnpm dev` + Inngest dev server | Daily work |
-| Staging | Vercel preview + Supabase project `bidscope-staging` | Review and test |
-| Production | Vercel production + Supabase project `bidscope-production` | Customers |
+| Staging | Vercel preview + Supabase project `openbid-staging` | Review and test |
+| Production | Vercel production + Supabase project `openbid-production` | Customers |
 
 | Service | Building | From first paying customer |
 |---|---|---|

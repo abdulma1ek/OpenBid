@@ -1,6 +1,6 @@
 # OpenBid
 
-Tender checking and tracking for Canadian suppliers selling to government. The planning documents use the working product name **BidScope One**.
+Tender checking and tracking for Canadian suppliers selling to government.
 
 Upload a tender package and get every requirement with its page and quote, checked against the company's saved certificates. Alongside it: a radar of federal and municipal tenders, deadlines and alerts.
 
@@ -16,4 +16,4 @@ Upload a tender package and get every requirement with its page and quote, check
 | How we work | [docs/team/coordination.md](docs/team/coordination.md) |
 | Why we chose things | [docs/decisions.md](docs/decisions.md) |
 
-Rules for AI assistants are in [CLAUDE.md](CLAUDE.md). The original brainstorm guide is kept in `docs/reference/`; the specification overrides it wherever they differ.
+Rules for AI assistants are in [CLAUDE.md](CLAUDE.md). The original brainstorm guide, written under the earlier name BidScope One, is kept in `docs/reference/`; the specification overrides it wherever they differ.

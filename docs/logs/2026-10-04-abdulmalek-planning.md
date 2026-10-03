@@ -9,6 +9,8 @@
 - Specification written: `docs/architecture.md`, `docs/data-model.md`, `docs/decisions.md`, `CLAUDE.md`, and a visual overview.
 - Provisional ten-week plan written: `docs/plan/execution-plan.md`, with `docs/plan/week-01.md`.
 - Working rules written: `docs/team/coordination.md`; session commands in `.claude/commands/`.
+- Working name set to OpenBid and applied everywhere; repository link added to `CLAUDE.md`.
+- Wrap-up rule added: saying "we're finishing up" makes the AI write and push the session log. Update rules for the documents are now in `CLAUDE.md`.
 
 ## Checks
 - None; no code yet.

@@ -1,4 +1,4 @@
-# BidScope One: How We Work
+# OpenBid: How We Work
 
 Version 1, 2026-10-04. For two founders building with AI assistance. Read by people and by AI agents; `/start-session` loads the relevant parts.
 
@@ -103,7 +103,7 @@ These cause most collisions. Each has one rule.
 |---|---|
 | Start | Run `/start-session <item>`. It pulls `main`, reads the week file and recent logs, and states the goal. |
 | During | One agent, one branch, one plan item. Stay in your lane's folders. |
-| End | Run `/end-session`. It runs the checks, pushes the branch, and writes the log. |
+| End | Say "we're finishing up" or run `/end-session`. Either way the agent runs the checks, summarises the session, writes the log to `docs/logs/`, and pushes. A session without a log is not finished. |
 
 **Rules for the agent**
 
@@ -113,7 +113,8 @@ These cause most collisions. Each has one rule.
 4. A new library or service needs an entry in `docs/decisions.md` first.
 5. Run the checks before every pull request and report failures plainly.
 6. If the specification is unclear or contradicts the code, stop and ask.
-7. No secrets and no customer documents in prompts. Use the public packages in `tests/fixtures/`.
+7. Keep the documents true: follow the update rules in `CLAUDE.md` in the same change.
+8. No secrets and no customer documents in prompts. Use the public packages in `tests/fixtures/`.
 
 **What to give an AI outside Claude Code** (a chat tool, or a fresh assistant with no repository access)
 

@@ -3,7 +3,7 @@ description: End a work session - run checks, push the branch, write the session
 argument-hint: [optional note]
 ---
 
-End this BidScope One work session. Note from me: $ARGUMENTS
+End this OpenBid work session. Note from me: $ARGUMENTS
 
 1. Run lint, typecheck and tests. Report the real results; do not hide or skip failures.
 2. Check the session against the rules:

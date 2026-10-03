@@ -1,4 +1,4 @@
-# BidScope One: Data Model
+# OpenBid: Data Model
 
 Version 1.0, 2026-10-04. Postgres on Supabase. Companion to `architecture.md`.
 

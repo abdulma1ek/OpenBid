@@ -1,4 +1,6 @@
-# BidScope One
+# OpenBid
+
+**Repository:** https://github.com/abdulma1ek/OpenBid (private; default branch `main`). OpenBid is the working product name.
 
 Paid B2B web app for Canadian facilities-and-goods suppliers bidding on government tenders.
 Headline feature: check a tender package against the company's saved evidence, with a page and quote for every requirement. Supporting features: tender radar, bid calendar, alerts.
@@ -45,14 +47,39 @@ If code and these docs disagree, stop and say so. Do not silently follow either.
 
 ## Session protocol
 
-- Start with `/start-session <plan item>`; end with `/end-session`. Every session ends with a log in `docs/logs/`.
-- One agent, one branch, one plan item. Stay in the owner's lane (`docs/team/coordination.md` section 4).
-- Never edit `docs/plan/`, the specification, or this file as a side effect of feature work. Put proposals in the session log.
-- Before touching a hot file or the other founder's lane, stop and say so.
+**Start.** `/start-session <plan item>`: pull `main`, read the week file and recent logs, state the goal.
+
+**During.** One agent, one branch, one plan item. Stay in the owner's lane (`docs/team/coordination.md` section 4). Before touching a hot file or the other founder's lane, stop and say so.
+
+**Wrap-up.** When the user says the session or the day is over ("we're finishing up", "wrapping up", "that's it for today", "done for now"), or runs `/end-session`, do all of this before your final reply, without being asked:
+
+1. Run lint, typecheck and tests if code exists; record the real results.
+2. Apply the update rules below; fix or list anything missing.
+3. Write the session log to `docs/logs/YYYY-MM-DD-<name>-<topic>.md` using the template in `docs/logs/README.md`: plan item, what changed, check results, what the partner needs to know, next step, plan changes to raise on Sunday.
+4. Commit the work and the log on the current branch and push. If the current branch is `main`, ask before pushing.
+5. Reply with the state (done, partly done, blocked), the log's path, and the next step.
+
+A session without a log is not finished. If the user ends abruptly, write the log before anything else.
+
+## Update rules
+
+Documentation that no longer matches the code is a bug. Make these updates in the same change, never later.
+
+| If you change | Also update |
+|---|---|
+| Tables, columns, status values, policies | `docs/data-model.md` |
+| A library, an external service, or an agreed choice | `docs/decisions.md` (new entry; never rewrite old ones) |
+| Components, pipelines, jobs, limits | `docs/architecture.md` |
+| Environment variables | `.env.example`, and tell the partner in the log |
+| Folder layout or working rules | `docs/team/coordination.md` and this file, by pull request both founders approve |
+| Scope, order or dates of work | Not mid-week. Record it in the log under "Plan changes to raise on Sunday"; `docs/plan/` changes only at the Sunday review or when a founder asks directly |
+
+Never edit `docs/plan/`, the specification, or this file as a side effect of feature work.
 
 ## Working conventions
 
 - One feature per branch, small pull requests, tests in the same PR.
+- Commits carry the human author's name only. No AI co-author or "generated with" lines in commits or pull requests.
 - New dependency or external service: add an entry to `docs/decisions.md` first.
 - A change to tables or statuses: update `docs/data-model.md` in the same PR.
 - Money in integer cents with a currency code. Timestamps `timestamptz` in UTC; display in the user's zone and name the zone on deadlines.

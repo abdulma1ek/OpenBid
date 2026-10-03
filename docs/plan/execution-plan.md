@@ -1,8 +1,18 @@
-# BidScope One: Execution Plan (provisional)
+# OpenBid: Execution Plan (provisional)
 
 Version 1, written 2026-10-04. Weeks run Monday to Sunday. Every week ends with one deliverable that can be shown on Sunday.
 
 This file is edited **only at the Sunday review** (`../team/coordination.md` section 8). Day-to-day progress lives in `../logs/`. The detailed task list for the current week lives in `week-NN.md` beside this file and is written one week at a time.
+
+## Session logs (every session, both founders)
+
+Every work session ends with a log so either of us can see what the other did.
+
+- To finish, tell the AI "we're finishing up" or run `/end-session`. It runs the checks, summarises the session, writes the log and pushes it.
+- Logs go in `docs/logs/`, one file per session, named `YYYY-MM-DD-<name>-<topic>.md`.
+- Each log states the plan item, what changed, check results, what the partner needs to know, the next step, and any plan change to raise on Sunday.
+- A session without a log is not finished. From week 1, the automated checks reject a pull request that adds no log.
+- At the Sunday review we read the week's logs before editing this plan.
 
 ## How to read it
 
@@ -102,3 +112,4 @@ This file is edited **only at the Sunday review** (`../team/coordination.md` sec
 | Date | Change | Why |
 |---|---|---|
 | 2026-10-04 | Plan created | |
+| 2026-10-04 | Renamed to OpenBid; added the session-log rule | Working name decided; traceability between sessions |

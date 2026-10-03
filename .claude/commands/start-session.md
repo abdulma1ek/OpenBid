@@ -3,7 +3,7 @@ description: Start a work session - sync, read the plan and recent logs, agree t
 argument-hint: [plan item, e.g. W2-3]
 ---
 
-Start a BidScope One work session. Plan item requested: $ARGUMENTS
+Start an OpenBid work session. Plan item requested: $ARGUMENTS
 
 1. Run `git status`. If there are uncommitted changes, stop and ask what to do with them. Otherwise switch to `main` and pull.
 2. Read `docs/plan/execution-plan.md` (current week only), the current `docs/plan/week-NN.md`, and the five most recent files in `docs/logs/`.
