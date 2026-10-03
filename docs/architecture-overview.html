@@ -1,0 +1,315 @@
+<title>BidScope One Architecture</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column, like a solicitation package: numbered parts, ruled tables, two wide figures. */
+:root{
+  --bg:#F2F4F7; --surface:#FFFFFF; --ink:#17212F; --muted:#566273; --line:#CBD3DD;
+  --accent:#1D4FC4; --accent-soft:#E3EBFB;
+  --cross:#A8560A; --cross-soft:#FBEBD6;
+  --met:#1B7348; --met-soft:#DDF1E6; --gap:#B3261E; --gap-soft:#FBE2E0; --unk-soft:#E6EAEF;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F141B; --surface:#171E28; --ink:#E4E9F0; --muted:#9AA7B8; --line:#2E3948;
+    --accent:#8AABFF; --accent-soft:#1B2A4A;
+    --cross:#E8A553; --cross-soft:#3A2A14;
+    --met:#5FCB95; --met-soft:#16321F; --gap:#FF8A80; --gap-soft:#3B1A18; --unk-soft:#232C38;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F141B; --surface:#171E28; --ink:#E4E9F0; --muted:#9AA7B8; --line:#2E3948;
+  --accent:#8AABFF; --accent-soft:#1B2A4A;
+  --cross:#E8A553; --cross-soft:#3A2A14;
+  --met:#5FCB95; --met-soft:#16321F; --gap:#FF8A80; --gap-soft:#3B1A18; --unk-soft:#232C38;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.page{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:40px 72px;display:flex;flex-direction:column;gap:56px}
+header{display:flex;flex-direction:column;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:24px}
+.ref{font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.02em;display:flex;flex-wrap:wrap;gap:6px 20px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,6vw,52px);line-height:1.05;margin:0;text-wrap:balance}
+.lede{max-width:66ch;margin:0;font-size:18px}
+section{display:flex;flex-direction:column;gap:18px}
+h2{font-family:var(--display);font-weight:600;font-size:27px;line-height:1.15;margin:0;text-wrap:balance;display:flex;gap:14px;align-items:baseline}
+h2 .part{font-family:var(--mono);font-weight:500;font-size:13px;color:var(--accent);letter-spacing:.04em;white-space:nowrap}
+h3{font-family:var(--display);font-weight:600;font-size:19px;margin:8px 0 0}
+p{margin:0;max-width:68ch}
+ul{margin:0;padding-left:20px;max-width:70ch;display:flex;flex-direction:column;gap:6px}
+code{font-family:var(--mono);font-size:.88em;background:var(--accent-soft);padding:1px 5px;border-radius:3px}
+figure{margin:0;display:flex;flex-direction:column;gap:10px}
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.scroll svg{display:block;min-width:820px;width:100%;height:auto;color:var(--ink)}
+figcaption{font-size:14px;color:var(--muted);max-width:76ch}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 12px 8px 0;border-bottom:1.5px solid var(--ink)}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:600;white-space:nowrap}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.met{background:var(--met-soft);color:var(--met)} .gapp{background:var(--gap-soft);color:var(--gap)} .unk{background:var(--unk-soft);color:var(--muted)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 36px}
+.rule{padding:14px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.rule b{font-weight:600}
+.rule span{color:var(--muted);font-size:15px}
+.note{border-left:3px solid var(--cross);background:var(--cross-soft);padding:12px 16px;max-width:72ch;font-size:15px}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px 32px}
+.groups div{display:flex;flex-direction:column;gap:6px;border-top:1.5px solid var(--ink);padding-top:10px}
+.groups h4{margin:0;font-family:var(--display);font-size:17px;font-weight:600}
+.groups p{font-size:14.5px;color:var(--muted)}
+.groups code{background:none;padding:0;color:var(--ink);line-height:1.7}
+/* diagram marks */
+.bx{fill:var(--surface);stroke:var(--ink);stroke-width:1.2}
+.bx-in{fill:var(--bg);stroke:var(--line);stroke-width:1.2}
+.bx-x{fill:var(--cross-soft);stroke:var(--cross);stroke-width:1.5}
+.bx-g{fill:var(--gap-soft);stroke:var(--gap);stroke-width:1.2}
+.zone{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.4;stroke-dasharray:6 5}
+.ln{fill:none;stroke:currentColor;stroke-width:1.3}
+.ln-x{fill:none;stroke:var(--cross);stroke-width:1.8}
+.ah{fill:currentColor} .ah-x{fill:var(--cross)}
+.tt{font-family:var(--body);font-size:13.5px;font-weight:600;fill:var(--ink)}
+.ts{font-family:var(--body);font-size:11px;fill:var(--muted)}
+.tl{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+.tz{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;fill:var(--accent)}
+.tx{font-family:var(--body);font-size:11px;fill:var(--cross);font-weight:500}
+.p-met{fill:var(--met-soft)} .p-gap{fill:var(--gap-soft)} .p-unk{fill:var(--unk-soft)}
+.pt-met{fill:var(--met)} .pt-gap{fill:var(--gap)} .pt{font-family:var(--mono);font-size:10.5px}
+</style>
+
+<div class="page">
+<header>
+  <div class="ref"><span>Technical specification, overview</span><span>Version 1.0</span><span>2026-10-04</span><span>Status: agreed scope, ready to plan</span></div>
+  <h1>BidScope One Architecture</h1>
+  <p class="lede">A paid web product for Canadian facilities and goods suppliers. It checks a tender package against the company's saved evidence, cites the page for every requirement, and keeps a radar and calendar of federal and municipal opportunities.</p>
+</header>
+
+<section>
+  <h2><span class="part">PART 1</span>The system on one page</h2>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 1000 500" role="img" aria-label="System diagram: the web app and Supabase store and run everything in Canada; only document pages sent to the Claude API leave for the United States.">
+      <defs>
+        <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker>
+        <marker id="a1x" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah-x" d="M0 0L10 5L0 10z"/></marker>
+      </defs>
+      <rect class="zone" x="260" y="36" width="420" height="440" rx="10"/>
+      <text class="tz" x="276" y="60">STORED AND RUN IN CANADA (MONTREAL)</text>
+
+      <rect class="bx" x="24" y="96" width="160" height="64" rx="5"/>
+      <text class="tt" x="36" y="122">Customer team</text><text class="ts" x="36" y="140">in a browser</text>
+      <line class="ln" x1="184" y1="128" x2="300" y2="128" marker-end="url(#a1)"/>
+      <text class="tl" x="222" y="120" text-anchor="middle">HTTPS</text>
+
+      <rect class="bx" x="300" y="84" width="340" height="92" rx="5"/>
+      <text class="tt" x="316" y="111">Web app and job code</text>
+      <text class="ts" x="316" y="130">Next.js on Vercel, one TypeScript codebase</text>
+      <text class="ts" x="316" y="146">pages, API routes, intake and check jobs</text>
+
+      <line class="ln" x1="470" y1="176" x2="470" y2="236" marker-end="url(#a1)"/>
+      <text class="tl" x="480" y="210">queries run as the signed-in user</text>
+
+      <rect class="bx" x="300" y="236" width="340" height="216" rx="5"/>
+      <text class="tt" x="316" y="260">Supabase</text>
+      <rect class="bx-in" x="316" y="274" width="308" height="64" rx="4"/>
+      <text class="tt" x="328" y="299">Postgres</text><text class="ts" x="328" y="317">row-level security, full-text search</text>
+      <rect class="bx-in" x="316" y="350" width="146" height="84" rx="4"/>
+      <text class="tt" x="328" y="376">Auth</text><text class="ts" x="328" y="394">users, teams,</text><text class="ts" x="328" y="409">roles</text>
+      <rect class="bx-in" x="478" y="350" width="146" height="84" rx="4"/>
+      <text class="tt" x="490" y="376">Storage</text><text class="ts" x="490" y="394">tender packages,</text><text class="ts" x="490" y="409">certificates</text>
+
+      <rect class="bx" x="24" y="236" width="160" height="60" rx="5"/>
+      <text class="tt" x="36" y="260">CanadaBuys</text><text class="ts" x="36" y="278">federal CSV, every 2 h</text>
+      <rect class="bx" x="24" y="312" width="160" height="60" rx="5"/>
+      <text class="tt" x="36" y="336">Municipal portals</text><text class="ts" x="36" y="354">public listing pages</text>
+      <rect class="bx" x="24" y="388" width="160" height="60" rx="5"/>
+      <text class="tt" x="36" y="412">Forwarded alerts</text><text class="ts" x="36" y="430">customer's own emails</text>
+      <polyline class="ln" points="184,266 222,266"/><polyline class="ln" points="184,342 222,342"/>
+      <polyline class="ln" points="184,418 222,418 222,160 300,160" marker-end="url(#a1)"/>
+      <text class="tl" x="24" y="472">intake jobs pull from these</text>
+
+      <rect class="bx" x="780" y="80" width="196" height="64" rx="5"/>
+      <text class="tt" x="792" y="106">Inngest</text><text class="ts" x="792" y="124">schedules, retries, job history</text>
+      <line class="ln" x1="780" y1="112" x2="640" y2="112" marker-end="url(#a1)"/>
+      <text class="tl" x="712" y="104" text-anchor="middle">starts jobs</text>
+
+      <polyline class="ln-x" points="640,150 740,150 740,225 780,225" marker-end="url(#a1x)"/>
+      <rect class="bx-x" x="780" y="190" width="196" height="70" rx="5"/>
+      <text class="tt" x="792" y="217">Claude API</text><text class="tx" x="792" y="236">processed in the US</text>
+      <text class="ts" x="792" y="279">receives document pages</text><text class="ts" x="792" y="294">and profile text</text>
+
+      <polyline class="ln" points="640,166 720,166 720,438 780,438" marker-end="url(#a1)"/>
+      <polyline class="ln" points="720,358 780,358" marker-end="url(#a1)"/>
+      <rect class="bx" x="780" y="330" width="196" height="56" rx="5"/>
+      <text class="tt" x="792" y="354">Stripe</text><text class="ts" x="792" y="372">checkout, billing webhooks</text>
+      <rect class="bx" x="780" y="410" width="196" height="56" rx="5"/>
+      <text class="tt" x="792" y="434">Postmark</text><text class="ts" x="792" y="452">alerts out, forwards in</text>
+    </svg>
+    </div>
+    <figcaption>Everything a customer uploads is stored in Canada. The amber hop is the only place document content leaves the country: pages go to the Claude API for reading and are not kept for training. Inngest only receives record IDs, never document text.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="part">PART 2</span>How a document check works</h2>
+  <p>This is the headline feature and the part competitors do not show. Every requirement must carry a page and a quote that our own code has found in the document.</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 1000 232" role="img" aria-label="Six-step check pipeline: upload, read pages, extract with Claude, verify the quote in code, compare against saved evidence by rules, then a person confirms.">
+      <defs>
+        <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker>
+      </defs>
+      <rect class="bx" x="20" y="24" width="144" height="78" rx="5"/>
+      <text class="tt" x="32" y="50">1 Upload</text><text class="ts" x="32" y="69">PDF or DOCX, kept</text><text class="ts" x="32" y="84">in private storage</text>
+      <rect class="bx" x="184" y="24" width="144" height="78" rx="5"/>
+      <text class="tt" x="196" y="50">2 Read pages</text><text class="ts" x="196" y="69">text saved</text><text class="ts" x="196" y="84">page by page</text>
+      <rect class="bx-x" x="348" y="24" width="144" height="78" rx="5"/>
+      <text class="tt" x="360" y="50">3 Extract</text><text class="ts" x="360" y="69">Claude returns text,</text><text class="ts" x="360" y="84">page and exact quote</text>
+      <rect class="bx" x="512" y="24" width="144" height="78" rx="5"/>
+      <text class="tt" x="524" y="50">4 Verify quote</text><text class="ts" x="524" y="69">code checks the quote</text><text class="ts" x="524" y="84">is on that page</text>
+      <rect class="bx" x="676" y="24" width="144" height="78" rx="5"/>
+      <text class="tt" x="688" y="50">5 Compare</text><text class="ts" x="688" y="69">rules test it against</text><text class="ts" x="688" y="84">saved evidence</text>
+      <rect class="bx" x="840" y="24" width="144" height="78" rx="5"/>
+      <text class="tt" x="852" y="50">6 Confirm</text><text class="ts" x="852" y="69">a person reviews each</text><text class="ts" x="852" y="84">mandatory item</text>
+      <line class="ln" x1="164" y1="63" x2="184" y2="63" marker-end="url(#a2)"/>
+      <line class="ln" x1="328" y1="63" x2="348" y2="63" marker-end="url(#a2)"/>
+      <line class="ln" x1="492" y1="63" x2="512" y2="63" marker-end="url(#a2)"/>
+      <line class="ln" x1="656" y1="63" x2="676" y2="63" marker-end="url(#a2)"/>
+      <line class="ln" x1="820" y1="63" x2="840" y2="63" marker-end="url(#a2)"/>
+
+      <line class="ln" x1="584" y1="102" x2="584" y2="158" marker-end="url(#a2)"/>
+      <text class="tl" x="576" y="134" text-anchor="end">quote not found</text>
+      <rect class="bx-g" x="512" y="158" width="144" height="52" rx="5"/>
+      <text class="tt" x="524" y="180">Flagged</text><text class="ts" x="524" y="197">not shown as verified</text>
+
+      <line class="ln" x1="748" y1="102" x2="748" y2="158" marker-end="url(#a2)"/>
+      <text class="tl" x="758" y="134">one result per requirement</text>
+      <rect class="p-met" x="668" y="160" width="42" height="24" rx="12"/><text class="pt pt-met" x="689" y="176" text-anchor="middle">Met</text>
+      <rect class="p-gap" x="716" y="160" width="42" height="24" rx="12"/><text class="pt pt-gap" x="737" y="176" text-anchor="middle">Gap</text>
+      <rect class="p-unk" x="764" y="160" width="68" height="24" rx="12"/><text class="pt tl" x="798" y="176" text-anchor="middle">Unknown</text>
+    </svg>
+    </div>
+    <figcaption>The model only does step 3. Steps 4 and 5 are ordinary code, so a made-up requirement fails the quote check and a missing certificate produces Unknown, not a pass.</figcaption>
+  </figure>
+  <div class="tw"><table>
+    <thead><tr><th>Result</th><th>When it is given</th><th>Example for a cleaning supplier</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pill met">Met</span></td><td>A confirmed, unexpired evidence item satisfies a numeric or yes/no rule.</td><td>Tender needs $2M liability cover; saved certificate shows $5M, valid past closing.</td></tr>
+      <tr><td><span class="pill gapp">Gap</span></td><td>Confirmed evidence exists and falls short, or has expired.</td><td>WSIB clearance on file expired last month.</td></tr>
+      <tr><td><span class="pill unk">Unknown</span></td><td>No evidence on file, or the requirement cannot be tested by a rule.</td><td>"Three references for contracts of similar size."</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="part">PART 3</span>How tenders get in</h2>
+  <p>Facilities and goods work is bought mostly by cities, school boards and hospitals, which the federal feed does not cover. Four intake paths feed one shared tender table, each through its own adapter.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Path</th><th>What it brings</th><th>Stage</th><th>What I verified</th></tr></thead>
+    <tbody>
+      <tr><td>CanadaBuys</td><td>Federal notices with categories, regions, dates and attachment links.</td><td>Release 1</td><td>Live file has 67 columns; new notices refresh every 2 hours. No contract value or clearance fields.</td></tr>
+      <tr><td>Upload</td><td>Any tender package from any portal, for checking.</td><td>Release 1</td><td>Claude accepts PDFs up to 600 pages and 32 MB per request; larger packages are split.</td></tr>
+      <tr><td>Forwarded alerts</td><td>The customer's own alert emails from MERX, Biddingo, bids&amp;tenders or Ontario Tenders, parsed into their private radar.</td><td>Release 1</td><td>Postmark inbound needs its Pro plan. The forwarding flow is not yet tested.</td></tr>
+      <tr><td>MERX collector</td><td>Public listing rows: title, buyer, closing date, link. No documents.</td><td>Release 2, gated</td><td>Open-solicitation listings load without login and are not blocked by robots.txt. Terms of use not yet read.</td></tr>
+      <tr><td>bids&amp;tenders collector</td><td>Same listing fields, per municipality.</td><td>Release 2, gated</td><td>robots.txt allows crawling with a 10-second delay. Page structure not yet confirmed.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">Ontario Tenders Portal and Biddingo are excluded from collectors. The first blocks its application in robots.txt and requires a login; the second blocks automated agents. Both are covered through forwarded alerts instead.</div>
+  <p>Each collector must pass a gate before it is built: its terms of use allow it, it runs a week without breaking, and it has a kill switch and a zero-results alarm. A collector that fails is dropped without touching the rest of the system.</p>
+</section>
+
+<section>
+  <h2><span class="part">PART 4</span>The stack</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Job</th><th>Choice</th><th>Why this one</th></tr></thead>
+    <tbody>
+      <tr><td>Language</td><td>TypeScript, one repository</td><td>One language for two AI-assisted builders; types catch mistakes early.</td></tr>
+      <tr><td>Web app</td><td>Next.js on Vercel, Montreal region</td><td>Pages and server code together; every branch gets a preview link.</td></tr>
+      <tr><td>Data, sign-in, files</td><td>Supabase in Canada Central</td><td>Postgres, Auth and Storage from one vendor, with tenant isolation enforced in the database.</td></tr>
+      <tr><td>Background jobs</td><td>Inngest</td><td>Scheduling, retries and a run history without servers. Jobs execute inside our own Vercel code.</td></tr>
+      <tr><td>Search</td><td>Postgres full-text, English and French</td><td>A few thousand open tenders need no separate search service.</td></tr>
+      <tr><td>AI</td><td>Claude Opus 5.5 for extraction, Claude Haiku 4.5 for match triage and email parsing</td><td>Accuracy matters most on requirements; volume matters most on triage.</td></tr>
+      <tr><td>Email</td><td>Postmark</td><td>Separate streams for alerts and marketing, plus inbound parsing for forwarded alerts.</td></tr>
+      <tr><td>Payments</td><td>Stripe Checkout and Customer Portal</td><td>No card data touches our code.</td></tr>
+      <tr><td>Monitoring</td><td>Sentry and PostHog</td><td>Errors and usage, with document content filtered out.</td></tr>
+      <tr><td>Tests</td><td>Vitest, Playwright, database isolation tests</td><td>The safety net when most code is AI-written.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Changes from the brainstorm guide: Cloudflare R2 is dropped for Supabase Storage, GitHub Actions cron is replaced by Inngest, keyword rules are replaced by model extraction with verified quotes, and embeddings are left out until matching proves it needs them.</p>
+</section>
+
+<section>
+  <h2><span class="part">PART 5</span>Rules the build must not break</h2>
+  <div class="rules">
+    <div class="rule"><b>The model extracts; code decides.</b><span>No model output sets a Met or Gap result directly.</span></div>
+    <div class="rule"><b>No quote, no claim.</b><span>A requirement is shown as verified only when its quote is found on its page.</span></div>
+    <div class="rule"><b>Unknown is the default.</b><span>Missing data, failed parsing and model refusals all end as Unknown or a failed check.</span></div>
+    <div class="rule"><b>Never say "eligible".</b><span>The product reports evidence against requirements. It does not promise qualification or award.</span></div>
+    <div class="rule"><b>Every private row has an owner.</b><span>Each customer table carries an organization ID with a database policy and a test.</span></div>
+    <div class="rule"><b>Document text stays out of third parties.</b><span>Nothing from a customer file goes to logs, analytics, error reports or job payloads.</span></div>
+    <div class="rule"><b>The official source wins.</b><span>Every tender links to its original notice, and deadlines say "verify before submitting".</span></div>
+    <div class="rule"><b>Spend is capped.</b><span>Each plan has a monthly check allowance, and the whole system has a hard AI budget.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="part">PART 6</span>What gets stored</h2>
+  <div class="groups">
+    <div><h4>Accounts</h4><p><code>organizations</code><br><code>memberships</code><br><code>invitations</code><br><code>subscriptions</code></p><p>Teams with owner, admin and member roles.</p></div>
+    <div><h4>Company</h4><p><code>company_profiles</code><br><code>evidence_items</code><br><code>files</code></p><p>Certificates uploaded once at onboarding, read by AI, confirmed by a person, reused for every check.</p></div>
+    <div><h4>Tenders</h4><p><code>sources</code><br><code>tenders</code><br><code>tender_versions</code><br><code>tender_attachments</code></p><p>Shared when public, private when uploaded or forwarded. A version per amendment.</p></div>
+    <div><h4>Checks</h4><p><code>checks</code><br><code>check_documents</code><br><code>document_pages</code><br><code>requirements</code></p><p>Each requirement holds its page, quote, verification flag, result and who confirmed it.</p></div>
+    <div><h4>Pursuit</h4><p><code>matches</code><br><code>bids</code><br><code>tasks</code><br><code>notifications</code></p><p>Radar scores with visible reasons, then deadlines and assigned tasks.</p></div>
+    <div><h4>Operations</h4><p><code>source_runs</code><br><code>inbound_emails</code><br><code>usage_events</code><br><code>audit_events</code></p><p>Import health, AI spend per company, and a trail of sensitive actions.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="part">PART 7</span>Running cost</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Service</th><th>While building</th><th>From first paying customer</th></tr></thead>
+    <tbody>
+      <tr><td>Vercel</td><td class="num">$0</td><td class="num">$20 per builder seat</td></tr>
+      <tr><td>Supabase</td><td class="num">$0</td><td class="num">from $25</td></tr>
+      <tr><td>Inngest</td><td class="num">$0</td><td class="num">$0 up to 50,000 runs</td></tr>
+      <tr><td>Postmark</td><td class="num">$16.50</td><td class="num">$16.50</td></tr>
+      <tr><td>Claude API</td><td class="num">about $30 to $60</td><td class="num">scales with checks</td></tr>
+      <tr><td>Sentry, PostHog</td><td class="num">$0</td><td class="num">$0</td></tr>
+      <tr><td>Total</td><td class="num">about $50 to $80</td><td class="num">about $85 to $100 plus AI usage</td></tr>
+    </tbody>
+  </table></div>
+  <p>Vercel, Supabase, Inngest and Postmark prices were read from their pricing pages on 2026-10-04. Claude and total figures are my estimates. Vercel's free plan is for non-commercial use and Supabase's free projects pause after a week idle, so both must move to paid plans before launch.</p>
+  <p>One large check should cost roughly $1 to $2 in AI usage, estimated from Opus 5.5 pricing of $4 per million input tokens. This must be measured on ten real packages before plan limits are set.</p>
+</section>
+
+<section>
+  <h2><span class="part">PART 8</span>Build stages</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Stage</th><th>Contains</th><th>Done when</th></tr></thead>
+    <tbody>
+      <tr><td>Foundation</td><td>Repository, environments, sign-in, teams, isolation tests.</td><td>Two test companies cannot see each other's data.</td></tr>
+      <tr><td>Evidence vault</td><td>Company profile and certificate upload with AI reading and confirmation.</td><td>A real insurance certificate becomes a confirmed record with an expiry date.</td></tr>
+      <tr><td>Checker</td><td>Upload, extraction, quote verification, comparison, review screen.</td><td>Ten real packages checked by hand against the output.</td></tr>
+      <tr><td>Radar and calendar</td><td>Federal intake, forwarded alerts, matching, deadlines, change alerts.</td><td>A design partner receives a correct daily digest for a week.</td></tr>
+      <tr><td>Billing and launch</td><td>Trial, subscription, usage limits, policies.</td><td>A test company pays and hits its limit correctly.</td></tr>
+      <tr><td>Release 2</td><td>Municipal collectors, then award and contract history.</td><td>Each collector passes its gate.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Parked with no design: the partner network. Reserved in the data model but not built: AI bid drafting. The week-by-week plan and how the two of you divide work come in the execution plan.</p>
+</section>
+
+<section>
+  <h2><span class="part">PART 9</span>Still to verify</h2>
+  <ul>
+    <li>How long a single server function may run on each Vercel plan, which decides how large packages are split.</li>
+    <li>MERX and bids&amp;tenders terms of use for automated reading of public listings.</li>
+    <li>The bids&amp;tenders listing page structure; my one test address returned "not found".</li>
+    <li>Extraction quality on French tender documents.</li>
+    <li>How forwarded-email setup behaves in Gmail and Outlook, including their confirmation step.</li>
+    <li>Real AI cost per check on ten actual packages.</li>
+  </ul>
+</section>
+</div>

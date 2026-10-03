@@ -1,0 +1,18 @@
+# dependencies and build output
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+
+# secrets and local settings
+.env*
+!.env.example
+.vercel/
+supabase/.temp/
+.claude/settings.local.json
+
+# system
+.DS_Store
+*.log

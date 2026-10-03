@@ -1,0 +1,248 @@
+<title>BidScope One Execution Plan</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: same single reading column as the architecture page; one wide schedule figure, then ruled tables. */
+:root{
+  --bg:#F2F4F7; --surface:#FFFFFF; --ink:#17212F; --muted:#566273; --line:#CBD3DD;
+  --accent:#1D4FC4; --accent-soft:#E3EBFB;
+  --cross:#A8560A; --cross-soft:#FBEBD6;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0F141B; --surface:#171E28; --ink:#E4E9F0; --muted:#9AA7B8; --line:#2E3948;
+    --accent:#8AABFF; --accent-soft:#1B2A4A;
+    --cross:#E8A553; --cross-soft:#3A2A14;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0F141B; --surface:#171E28; --ink:#E4E9F0; --muted:#9AA7B8; --line:#2E3948;
+  --accent:#8AABFF; --accent-soft:#1B2A4A;
+  --cross:#E8A553; --cross-soft:#3A2A14;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.page{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:40px 72px;display:flex;flex-direction:column;gap:56px}
+header{display:flex;flex-direction:column;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:24px}
+.ref{font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.02em;display:flex;flex-wrap:wrap;gap:6px 20px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,6vw,52px);line-height:1.05;margin:0;text-wrap:balance}
+.lede{max-width:66ch;margin:0;font-size:18px}
+section{display:flex;flex-direction:column;gap:18px}
+h2{font-family:var(--display);font-weight:600;font-size:27px;line-height:1.15;margin:0;text-wrap:balance;display:flex;gap:14px;align-items:baseline}
+h2 .part{font-family:var(--mono);font-weight:500;font-size:13px;color:var(--accent);letter-spacing:.04em;white-space:nowrap}
+p{margin:0;max-width:68ch}
+ol,ul{margin:0;padding-left:22px;max-width:70ch;display:flex;flex-direction:column;gap:6px}
+code{font-family:var(--mono);font-size:.88em;background:var(--accent-soft);padding:1px 5px;border-radius:3px}
+figure{margin:0;display:flex;flex-direction:column;gap:10px}
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.scroll svg{display:block;min-width:820px;width:100%;height:auto;color:var(--ink)}
+figcaption{font-size:14px;color:var(--muted);max-width:76ch}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 12px 8px 0;border-bottom:1.5px solid var(--ink)}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:600;white-space:nowrap}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:400}
+.pill{display:inline-block;font-family:var(--mono);font-size:11.5px;padding:1px 8px;border-radius:999px;white-space:nowrap;background:var(--cross-soft);color:var(--cross);margin-left:6px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 36px}
+.rule{padding:14px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.rule b{font-weight:600}
+.rule span{color:var(--muted);font-size:15px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px 32px}
+.cols>div{display:flex;flex-direction:column;gap:8px;border-top:1.5px solid var(--ink);padding-top:10px}
+.cols h3{margin:0;font-family:var(--display);font-size:18px;font-weight:600}
+.cols p,.cols li{font-size:15px}
+.cols ul{padding-left:18px}
+pre{margin:0;font-family:var(--mono);font-size:13px;line-height:1.6;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;overflow-x:auto;color:var(--ink)}
+pre .c{color:var(--muted)}
+.note{border-left:3px solid var(--cross);background:var(--cross-soft);padding:12px 16px;max-width:72ch;font-size:15px}
+/* schedule marks */
+.grid{stroke:var(--line);stroke-width:1}
+.bar{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.4}
+.bar-o{fill:var(--bg);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:5 4}
+.gate{fill:var(--cross);stroke:var(--surface);stroke-width:1.5}
+.rl{font-family:var(--body);font-size:13px;font-weight:500;fill:var(--ink)}
+.wk{font-family:var(--mono);font-size:12px;fill:var(--ink)}
+.dt{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+.hd{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;fill:var(--muted)}
+.sep{stroke:var(--ink);stroke-width:1.2}
+</style>
+
+<div class="page">
+<header>
+  <div class="ref"><span>Execution plan, provisional</span><span>Version 1</span><span>2026-10-04</span><span>Weeks end on Sunday</span></div>
+  <h1>BidScope One Execution Plan</h1>
+  <p class="lede">Ten weeks from an empty repository to a pilot with design partners, with one thing to show every Sunday. This page is a snapshot; the live plan is <code>docs/plan/execution-plan.md</code> and it changes at each Sunday review.</p>
+</header>
+
+<section>
+  <h2><span class="part">PART 1</span>Ten weeks at a glance</h2>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 1000 490" role="img" aria-label="Schedule: Foundation in weeks 1 to 2, Evidence vault in week 3, Checker in weeks 4 to 6, Radar and calendar in weeks 7 to 8, Billing in week 9, Pilot in week 10, with gates at the end of weeks 2, 6 and 9. Customer and company work runs alongside.">
+      <text class="hd" x="16" y="26">WEEK</text><text class="hd" x="16" y="44">ENDS SUNDAY</text>
+      <g text-anchor="middle">
+        <text class="wk" x="220" y="26">1</text><text class="dt" x="220" y="44">Oct 11</text>
+        <text class="wk" x="300" y="26">2</text><text class="dt" x="300" y="44">Oct 18</text>
+        <text class="wk" x="380" y="26">3</text><text class="dt" x="380" y="44">Oct 25</text>
+        <text class="wk" x="460" y="26">4</text><text class="dt" x="460" y="44">Nov 1</text>
+        <text class="wk" x="540" y="26">5</text><text class="dt" x="540" y="44">Nov 8</text>
+        <text class="wk" x="620" y="26">6</text><text class="dt" x="620" y="44">Nov 15</text>
+        <text class="wk" x="700" y="26">7</text><text class="dt" x="700" y="44">Nov 22</text>
+        <text class="wk" x="780" y="26">8</text><text class="dt" x="780" y="44">Nov 29</text>
+        <text class="wk" x="860" y="26">9</text><text class="dt" x="860" y="44">Dec 6</text>
+        <text class="wk" x="940" y="26">10</text><text class="dt" x="940" y="44">Dec 13</text>
+      </g>
+      <g class="grid">
+        <line x1="180" y1="54" x2="180" y2="474"/><line x1="260" y1="54" x2="260" y2="474"/><line x1="340" y1="54" x2="340" y2="474"/>
+        <line x1="420" y1="54" x2="420" y2="474"/><line x1="500" y1="54" x2="500" y2="474"/><line x1="580" y1="54" x2="580" y2="474"/>
+        <line x1="660" y1="54" x2="660" y2="474"/><line x1="740" y1="54" x2="740" y2="474"/><line x1="820" y1="54" x2="820" y2="474"/>
+        <line x1="900" y1="54" x2="900" y2="474"/><line x1="980" y1="54" x2="980" y2="474"/>
+      </g>
+
+      <text class="rl" x="16" y="84">Foundation</text>
+      <rect class="bar" x="183" y="66" width="154" height="26" rx="4"/>
+      <text class="rl" x="16" y="122">Evidence vault</text>
+      <rect class="bar" x="343" y="104" width="74" height="26" rx="4"/>
+      <text class="rl" x="16" y="160">Checker</text>
+      <rect class="bar" x="423" y="142" width="234" height="26" rx="4"/>
+      <text class="rl" x="16" y="198">Radar, calendar, alerts</text>
+      <rect class="bar" x="663" y="180" width="154" height="26" rx="4"/>
+      <text class="rl" x="16" y="236">Billing and policies</text>
+      <rect class="bar" x="823" y="218" width="74" height="26" rx="4"/>
+      <text class="rl" x="16" y="274">Pilot</text>
+      <rect class="bar" x="903" y="256" width="74" height="26" rx="4"/>
+
+      <polygon class="gate" points="340,69 350,79 340,89 330,79"/>
+      <polygon class="gate" points="660,145 670,155 660,165 650,155"/>
+      <polygon class="gate" points="900,221 910,231 900,241 890,231"/>
+
+      <line class="sep" x1="16" y1="300" x2="980" y2="300"/>
+      <text class="hd" x="16" y="318">ALONGSIDE THE BUILD</text>
+
+      <text class="rl" x="16" y="346">Real tender packages</text>
+      <rect class="bar-o" x="183" y="328" width="314" height="26" rx="4"/>
+      <text class="rl" x="16" y="384">Supplier interviews</text>
+      <rect class="bar-o" x="263" y="366" width="314" height="26" rx="4"/>
+      <text class="rl" x="16" y="422">Company, bank, Stripe</text>
+      <rect class="bar-o" x="503" y="404" width="314" height="26" rx="4"/>
+      <text class="rl" x="16" y="460">Demos, design partners</text>
+      <rect class="bar-o" x="583" y="442" width="394" height="26" rx="4"/>
+    </svg>
+    </div>
+    <figcaption>Solid bars are build stages. Dashed bars are work outside the code. An amber diamond is a gate: tenant isolation at the end of week 2, checker quality at the end of week 6, payments at the end of week 9. The build does not move past a gate until it passes.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="part">PART 2</span>What gets shown each Sunday</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Week</th><th>Sunday</th><th>Deliverable</th><th>Passes when</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="num">Oct 11</td><td>A staging site where both of you can sign in.</td><td>Sign-in works on the staging link; a pull request runs automated checks.</td></tr>
+      <tr><td>2 <span class="pill">gate</span></td><td class="num">Oct 18</td><td>Companies, teams, invitations and roles.</td><td>Two test companies cannot see each other's data, proven by automated tests.</td></tr>
+      <tr><td>3</td><td class="num">Oct 25</td><td>Company profile and certificate upload with AI reading.</td><td>A real insurance certificate and a WSIB clearance become confirmed records with expiry dates.</td></tr>
+      <tr><td>4</td><td class="num">Nov 1</td><td>The check pipeline, without the polished screen.</td><td>Three real packages produce requirement lists with verified quotes; cost per package is measured.</td></tr>
+      <tr><td>5</td><td class="num">Nov 8</td><td>A full check on staging.</td><td>One package goes from upload to Met, Gap or Unknown to reviewed.</td></tr>
+      <tr><td>6 <span class="pill">gate</span></td><td class="num">Nov 15</td><td>Quality report on ten real packages, shown to two or three suppliers.</td><td>Every invented requirement is caught by the quote check; missed mandatory items are counted and both of you accept the number.</td></tr>
+      <tr><td>7</td><td class="num">Nov 22</td><td>Federal tenders imported and scored against a profile.</td><td>The import runs unattended for three days; a test profile sees sensible matches with reasons.</td></tr>
+      <tr><td>8</td><td class="num">Nov 29</td><td>Forwarded alert emails, bids, tasks, reminders, daily digest.</td><td>A forwarded portal alert appears in the radar; a reminder and a digest email arrive.</td></tr>
+      <tr><td>9 <span class="pill">gate</span></td><td class="num">Dec 6</td><td>Trial, subscription, check allowance, policies.</td><td>A test company subscribes and is stopped at its limit; privacy policy and terms are on the site.</td></tr>
+      <tr><td>10</td><td class="num">Dec 13</td><td>Three to five design partners onboarded by hand.</td><td>Partners have run real checks; a launch decision is written down.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">Week 6 is the point to change direction. If the checker is not good enough on real packages, stop and fix it before building the radar.</div>
+  <p>The plan assumes each of you has roughly 15 hours or more a week. With less time, stretch every stage and keep the gates.</p>
+</section>
+
+<section>
+  <h2><span class="part">PART 3</span>Who builds what</h2>
+  <p>Two tracks keep you in different folders most of the time. Decide who takes which before Monday; swap at any Sunday review.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Track</th><th>Covers</th><th>Folders</th></tr></thead>
+    <tbody>
+      <tr><td>A: data and plumbing</td><td>Database, sign-in, isolation, background jobs, tender intake, billing.</td><td><code>supabase/</code> <code>lib/db</code> <code>lib/sources</code> <code>lib/llm</code> <code>lib/billing</code> <code>inngest/</code> <code>app/api</code></td></tr>
+      <tr><td>B: product surface</td><td>Screens, onboarding, evidence vault, review screen, emails, wording.</td><td><code>app/(app)</code> <code>app/(auth)</code> <code>components/</code> <code>lib/copy</code> <code>lib/notifications</code> <code>lib/evidence</code></td></tr>
+      <tr><td>Both</td><td>Checker pipeline in weeks 4 to 6, split item by item in the week file.</td><td><code>lib/checker</code> <code>lib/assessment</code></td></tr>
+      <tr><td>Outside the code</td><td>Interviews, real tender packages, design partners, company and Stripe setup.</td><td>Shared</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="part">PART 4</span>Where things live</h2>
+  <p>One private GitHub repository holds the code, the specification, the plan and the logs. Secrets go in a password vault and the supplier contact list stays in a spreadsheet outside the repository.</p>
+<pre>OpenBid/
+├── CLAUDE.md                     <span class="c">rules every AI session loads</span>
+├── .claude/commands/             <span class="c">/start-session, /end-session</span>
+├── .github/workflows/            <span class="c">automated checks</span>
+├── docs/
+│   ├── architecture.md           <span class="c">specification</span>
+│   ├── data-model.md
+│   ├── decisions.md
+│   ├── plan/
+│   │   ├── execution-plan.md     <span class="c">edited on Sundays only</span>
+│   │   └── week-01.md …          <span class="c">one task list per week</span>
+│   ├── team/coordination.md      <span class="c">how we work</span>
+│   ├── logs/                     <span class="c">one file per session</span>
+│   └── research/                 <span class="c">interview notes</span>
+├── app/  components/  lib/  inngest/
+├── supabase/migrations/
+└── tests/                        <span class="c">includes fixtures/ with public tender packages</span></pre>
+</section>
+
+<section>
+  <h2><span class="part">PART 5</span>A work session, start to finish</h2>
+  <div class="cols">
+    <div><h3>Start</h3><p>Type <code>/start-session W2-3</code>.</p><ul><li>Pulls the latest code.</li><li>Reads this week's tasks and recent logs.</li><li>Tells you what your partner changed.</li><li>States the goal and waits for your go-ahead.</li></ul></div>
+    <div><h3>During</h3><ul><li>One agent, one branch, one plan item.</li><li>Stay in your track's folders.</li><li>Message your partner before touching a shared file.</li></ul></div>
+    <div><h3>End</h3><p>Type <code>/end-session</code>.</p><ul><li>Runs the checks and reports honestly.</li><li>Pushes the branch and opens the pull request.</li><li>Writes the session log.</li></ul></div>
+  </div>
+  <p>A log is a short file named by date, person and topic, for example <code>2026-10-06-sara-signin.md</code>. It records the plan item, what changed, check results, anything your partner needs to know, the next step, and any plan change to raise on Sunday. Because each session has its own file, two people never edit the same log.</p>
+</section>
+
+<section>
+  <h2><span class="part">PART 6</span>Rules that stop collisions</h2>
+  <div class="rules">
+    <div class="rule"><b>Nobody pushes to the main branch.</b><span>Every change is a pull request the other person approves, with checks passing.</span></div>
+    <div class="rule"><b>Branches live two days at most.</b><span>Small pull requests your partner can read in ten minutes.</span></div>
+    <div class="rule"><b>The plan changes on Sunday only.</b><span>Mid-week proposals go in your log.</span></div>
+    <div class="rule"><b>Database changes are new files.</b><span>Never edit a merged migration; tell your partner when one merges.</span></div>
+    <div class="rule"><b>Generated files are regenerated.</b><span>On a conflict, take the main version and rebuild, never merge by hand.</span></div>
+    <div class="rule"><b>New libraries get their own pull request.</b><span>Merged the same day, with a line in the decision log.</span></div>
+    <div class="rule"><b>Never two agents on one branch.</b><span>Parallel agents each get a separate working copy.</span></div>
+    <div class="rule"><b>The AI does not rewrite the rules.</b><span>Specification, plan and <code>CLAUDE.md</code> change only when you both agree.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="part">PART 7</span>The Sunday review</h2>
+  <p>Thirty to forty-five minutes, together.</p>
+  <ol>
+    <li>Demonstrate the week's deliverable on staging.</li>
+    <li>Decide whether it passed.</li>
+    <li>Read the week's logs, especially the plan changes people raised.</li>
+    <li>Edit the plan and note why.</li>
+    <li>Write next week's task list with an owner on every item.</li>
+    <li>Write a short review log and merge everything in one pull request.</li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="part">PART 8</span>What to give an AI</h2>
+  <p>Inside Claude Code in the repository, nothing needs uploading. For a chat tool or a fresh assistant, upload these.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Task</th><th>Files</th></tr></thead>
+    <tbody>
+      <tr><td>Any session</td><td><code>CLAUDE.md</code>, <code>docs/team/coordination.md</code>, the current <code>docs/plan/week-NN.md</code>, logs since your last session</td></tr>
+      <tr><td>Building a feature</td><td>plus <code>docs/architecture.md</code></td></tr>
+      <tr><td>Database or permissions</td><td>plus <code>docs/data-model.md</code></td></tr>
+      <tr><td>A new tool or approach</td><td>plus <code>docs/decisions.md</code></td></tr>
+      <tr><td>Sunday review</td><td><code>docs/plan/execution-plan.md</code> and the week's logs</td></tr>
+    </tbody>
+  </table></div>
+</section>
+</div>
